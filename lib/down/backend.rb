@@ -21,7 +21,8 @@ module Down
 
     # If destination path is defined, move tempfile to the destination,
     # otherwise return the tempfile unchanged.
-    def download_result(tempfile, destination)
+    def download_result(tempfile, destination, name)
+      FileUtils.mv tempfile, name if name
       return tempfile unless destination
 
       tempfile.close # required for Windows

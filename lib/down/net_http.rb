@@ -38,6 +38,7 @@ module Down
       progress_proc       = options.delete(:progress_proc)
       content_length_proc = options.delete(:content_length_proc)
       destination         = options.delete(:destination)
+      name                = options.delete(:name)
       headers             = options.delete(:headers)
       uri_normalizer      = options.delete(:uri_normalizer)
 
@@ -97,7 +98,7 @@ module Down
       OpenURI::Meta.init tempfile, open_uri_file # add back open-uri methods
       tempfile.extend Down::NetHttp::DownloadedFile
 
-      download_result(tempfile, destination)
+      download_result(tempfile, destination, name)
     end
 
     # Starts retrieving the remote file using Net::HTTP and returns an IO-like

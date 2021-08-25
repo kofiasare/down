@@ -25,7 +25,7 @@ module Down
 
     # Downlods the remote file to disk. Accepts HTTP.rb options via a hash or a
     # block, and some additional options as well.
-    def download(url, max_size: nil, progress_proc: nil, content_length_proc: nil, destination: nil, **options, &block)
+    def download(url, max_size: nil, progress_proc: nil, content_length_proc: nil, destination: nil, name: nil, **options, &block)
       response = request(url, **options, &block)
 
       content_length_proc.call(response.content_length) if content_length_proc && response.content_length
@@ -54,7 +54,7 @@ module Down
       tempfile.url     = response.uri.to_s
       tempfile.headers = response.headers.to_h
 
-      download_result(tempfile, destination)
+      download_result(tempfile, destination, name)
     rescue
       tempfile.close! if tempfile
       raise
